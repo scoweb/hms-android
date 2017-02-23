@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listView.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.INVISIBLE);
     }
     private void getData(){
         stringArrayList = new ArrayList<>();
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
             } while (cursor.moveToNext());
         }
-        cursor.close();
+        //cursor.close();
 
     }
     @Override
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                         String name,contact_no;
                         name = cursor.getString(0);
                         contact_no = cursor.getString(1);
-                        String contactDetails=name+""+contact_no;
+                        String contactDetails=name+" "+contact_no;
                         stringArrayList.add(contactDetails);
 
                     } while (cursor.moveToNext());

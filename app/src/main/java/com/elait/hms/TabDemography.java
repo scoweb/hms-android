@@ -1,26 +1,17 @@
 package com.elait.hms;
+
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-=======
 import android.widget.TextView;
 
-import static android.os.Build.VERSION_CODES.M;
->>>>>>> origin/V0.1-S_DATA
-
 /**
- * Created by balasubramanian on 02/02/17.
+ * Created by User on 2017-02-23.
  */
 
-public class TabDemography extends Fragment {
-<<<<<<< HEAD
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_demography, container, false);
-=======
+public class TabDemography extends android.support.v4.app.Fragment {
 
     String p_demography[][] = new String[][]{
             {"Vikram", "9432088774", "M", "43", "20 years", "high", "12333", "Bengaluru", "positive"},
@@ -59,6 +50,5 @@ public class TabDemography extends Fragment {
         }
 
         return view ;
->>>>>>> origin/V0.1-S_DATA
     }
 }
