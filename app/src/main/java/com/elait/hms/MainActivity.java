@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 package com.elait.hms;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -91,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private ArrayList<String> stringArrayList;
     private SearchListViewAdapter adapter;
+    DatabaseHelper helper ;
+    SQLiteDatabase db;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,42 +103,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        listView = (ListView) findViewById(R.id.list_item);
+        listView = (ListView) findViewById(R.id.search_list_item);
+        helper=new DatabaseHelper(getApplicationContext());
+        db=helper.getReadableDatabase();
+        cursor=helper.getadddetails(db);
 
-        setData();
+        getData();
         adapter = new SearchListViewAdapter(this, R.layout.search_item_listview, stringArrayList);
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(MainActivity.this, (String)parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent (MainActivity.this,TabsActivity.class);
-//TODO - put that was clicked.
+                String[] parts=((String)parent.getItemAtPosition(position)).split(" ");
+                intent.putExtra("PATIENT_NAME",parts[0]);
+                intent.putExtra("MOBILE_NO",parts[1]);
                 startActivity(intent);
             }
         });
-        listView.setVisibility(View.INVISIBLE);
+        listView.setVisibility(View.VISIBLE);
     }
-
-    private void setData() {
+    private void getData(){
         stringArrayList = new ArrayList<>();
-        stringArrayList.add("Vikram Sivaram");
-        stringArrayList.add("Jyotsna Neilval");
-        stringArrayList.add("Randeep Sarkar");
-        stringArrayList.add("Chander Bala");
-        stringArrayList.add("Archana Kumar");
-        stringArrayList.add("Sanjana Sridhar");
-        stringArrayList.add("Arpit Sripathy");
-        stringArrayList.add("Geogre Jacob");
-        stringArrayList.add("Aravindan Sreeram");
-        stringArrayList.add("Vipin Nair");
-        stringArrayList.add("Vinod Kumar");
-        stringArrayList.add("Archana Pai");
-        stringArrayList.add("Kappar Singh");
-        stringArrayList.add("Moushmi Kaur");
-    }
+        if (cursor.moveToFirst()) {
+            do {
 
+
+                String name,contact_no;
+                name = cursor.getString(0);
+                contact_no = cursor.getString(1);
+                String contactDetails=name+" "+contact_no;
+                stringArrayList.add(contactDetails);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+    }
     @Override
     public boolean onCreateOptionsMenu( Menu menu) {
         getMenuInflater().inflate( R.menu.menu_main, menu);
@@ -164,13 +171,29 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_search:
                 Toast.makeText(getApplicationContext(), "Search button clicked", Toast.LENGTH_SHORT).show();
-                execSearch(item);
+                if (cursor.moveToFirst()) {
+                    do {
+
+
+                        String name,contact_no;
+                        name = cursor.getString(0);
+                        contact_no = cursor.getString(1);
+                        String contactDetails=name+""+contact_no;
+                        stringArrayList.add(contactDetails);
+
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
                 return true;
             case R.id.action_add_person:
                 Toast.makeText(getApplicationContext(),"Add button Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,Add_New_Patient.class);
+                startActivity(intent);
                 return true;
             case R.id.action_home:
                 Toast.makeText(getApplicationContext(),"Home button Clicked", Toast.LENGTH_SHORT).show();
+                Intent in = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(in);
                 return true;
 
             default:
@@ -178,25 +201,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void execSearch(MenuItem item)
-    {
-        final SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                    adapter.filter("");
-                    listView.clearTextFilter();
-                } else {
-                    adapter.filter(newText);
-                }
-                return true;
-            }
-        });
-   }
 }
