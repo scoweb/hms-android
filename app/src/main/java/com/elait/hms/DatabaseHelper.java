@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_First_name = "fname";
     public static final String COLUMN_Last_name = "lname";
     public static final String COLUMN_gender = "gender";
+    public   static  final  String COLUMN_patient_history_id="patient_id";
     public static final String COLUMN_pres = "prescription";
     public static final String COLUMN_diagnosis = "diagnosis";
     public static final String COLUMN_note = "note";
@@ -32,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase db;
 
 
-    public static final String CONTACT_CREATE = "create table contacts (id integer primary key not null , "
+    public static final String CONTACT_CREATE = "create table contacts (id integer primary key AUTOINCREMENT , "
             + "fname text not null , lname text not null , age text not null , date text not null , contact_no text not null);";
 
     public static final String HISTORY_CREATE = "create table patient_history (id integer primary key not null, patient_id integer , "
@@ -60,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertcontacts(Contact c) {
         db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-        value.put(COLUMN_patient_id, c.getId());
+        //value.put(COLUMN_patient_id, c.getId());
         value.put(COLUMN_age, c.getage());
         value.put(COLUMN_contact_no, c.getContact_no());
         value.put(COLUMN_First_name, c.getFname());
@@ -72,6 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertPatientRecord(Patient_Records c) {
         db = this.getWritableDatabase();
         ContentValues value1 = new ContentValues();
+        value1.put(COLUMN_patient_history_id,c.getId());
         value1.put(COLUMN_diagnosis, c.getDiagnosis());
         value1.put(COLUMN_pres, c.getPrescription());
         value1.put(COLUMN_note, c.getNotes());
@@ -83,10 +85,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getadddetails(SQLiteDatabase db) {
         Cursor cursor;
-        String[] projections = {COLUMN_First_name,COLUMN_contact_no};
+        String[] projections = {COLUMN_First_name,COLUMN_contact_no,COLUMN_patient_id};
         cursor = db.query(PATIENT_CONTACTS, projections, null, null, null, null, null);
         return cursor;
+    }
 
+    public Cursor getPatientHistory(SQLiteDatabase db,String id){
+        Cursor cursor;
+        String[] projections1={COLUMN_date,COLUMN_pres,COLUMN_diagnosis,COLUMN_note};
+        cursor=db.query(PATIENT_RECORDS,projections1,COLUMN_patient_history_id+"=?",new String[] {id},null,null,COLUMN_date+" DESC");
+        return cursor;
     }
 
     @Override
