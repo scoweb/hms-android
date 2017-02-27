@@ -25,7 +25,7 @@ public class Add_New_Patient extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_patient_layout);
         rg =(RadioGroup) findViewById(R.id.rgroup);
-        EditText id = (EditText) findViewById(R.id.p_id);
+       // EditText id = (EditText) findViewById(R.id.p_id);
         EditText fname = (EditText) findViewById(R.id.p_name);
         EditText lname = (EditText) findViewById(R.id.p_name_last);
         EditText age = (EditText) findViewById(R.id.p_age);
@@ -33,7 +33,7 @@ public class Add_New_Patient extends Activity{
         EditText date = (EditText) findViewById(R.id.p_date);
 
 
-        id.addTextChangedListener(textWatcher);
+       // id.addTextChangedListener(textWatcher);
         fname.addTextChangedListener(textWatcher);
         lname.addTextChangedListener(textWatcher);
         age.addTextChangedListener(textWatcher);
@@ -66,7 +66,7 @@ public class Add_New_Patient extends Activity{
     };
     public void checkFieldsForEmptyValues(){
         Button b = (Button) findViewById(R.id.P_register);
-        EditText id = (EditText) findViewById(R.id.p_id);
+      //  EditText id = (EditText) findViewById(R.id.p_id);
         EditText fname = (EditText) findViewById(R.id.p_name);
         EditText lname = (EditText) findViewById(R.id.p_name_last);
         EditText age = (EditText) findViewById(R.id.p_age);
@@ -74,7 +74,7 @@ public class Add_New_Patient extends Activity{
         EditText date = (EditText) findViewById(R.id.p_date);
 
 
-        String id_str = id.getText().toString();
+        //String id_str = id.getText().toString();
         String fname_str = fname.getText().toString();
         String lname_str = lname.getText().toString();
         String age_str = age.getText().toString();
@@ -91,21 +91,21 @@ public class Add_New_Patient extends Activity{
 
         if (v.getId() == R.id.P_register) {
 
-            EditText id = (EditText) findViewById(R.id.p_id);
+          //  EditText id = (EditText) findViewById(R.id.p_id);
             EditText fname = (EditText) findViewById(R.id.p_name);
             EditText lname = (EditText) findViewById(R.id.p_name_last);
             EditText age = (EditText) findViewById(R.id.p_age);
             EditText phone = (EditText) findViewById(R.id.p_phone);
             EditText date = (EditText) findViewById(R.id.p_date);
 
-            id.addTextChangedListener(textWatcher);
+         //   id.addTextChangedListener(textWatcher);
             fname.addTextChangedListener(textWatcher);
             lname.addTextChangedListener(textWatcher);
             age.addTextChangedListener(textWatcher);
             phone.addTextChangedListener(textWatcher);
             date.addTextChangedListener(textWatcher);
 
-            String id_str = id.getText().toString().trim();
+          //  String id_str = id.getText().toString().trim();
             String fname_str = fname.getText().toString().trim();
             String lname_str = lname.getText().toString().trim();
             String age_str = age.getText().toString().trim();
@@ -113,7 +113,7 @@ public class Add_New_Patient extends Activity{
             String date_str = date.getText().toString().trim();
             checkFieldsForEmptyValues();
             Contact c = new Contact();
-            c.setId(id_str);
+           // c.setId(id_str);
             c.setage(age_str);
             c.setFname(fname_str);
             c.setLname(lname_str);
