@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 public class TabAddRecord extends android.support.v4.app.Fragment implements View.OnClickListener{
 
+    EditText p_id ;
     EditText p_notes;
     EditText p_diagnosis;
     EditText p_prescription ;
@@ -36,12 +37,15 @@ public class TabAddRecord extends android.support.v4.app.Fragment implements Vie
 
     @Override
     public void onClick(View v) {
+
+        p_id = (EditText) getView().findViewById(R.id.patient_id);
         p_notes = (EditText) getView().findViewById(R.id.notes);
         p_diagnosis = (EditText) getView().findViewById(R.id.diagnosis);
         p_prescription = (EditText) getView().findViewById(R.id.prescription);
         p_next_visit = (EditText) getView().findViewById(R.id.next_visit);
 
 
+        String patient_id = p_id.getText().toString();
         String patient_notes = p_notes.getText().toString();
         String patient_diagnosis = p_diagnosis.getText().toString();
         String patient_pres= p_prescription.getText().toString();
@@ -50,6 +54,7 @@ public class TabAddRecord extends android.support.v4.app.Fragment implements Vie
 
         Patient_Records c = new Patient_Records();
 
+        c.setId(patient_id);
         c.setNotes(patient_notes);
         c.setDiagnosis(patient_diagnosis);
         c.setPrescription(patient_pres);
