@@ -22,7 +22,7 @@ public class TabsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tabs);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-        String name = getIntent().getStringExtra("PATIENT_NAME");
+        String id = getIntent().getStringExtra("PATIENT_ID");
         String phn = getIntent().getStringExtra("MOBILE_NO");
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -32,7 +32,7 @@ public class TabsActivity extends AppCompatActivity {
         TextView tv_name = (TextView) findViewById(R.id.name);
         TextView tv_phone = (TextView) findViewById(R.id.mobile_no);
 
-        tv_name.setText(name);
+        tv_name.setText(id);
         tv_phone.setText(phn);
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab1_title).setIcon(R.drawable.ic_personal_information));
