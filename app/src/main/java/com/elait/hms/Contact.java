@@ -19,14 +19,14 @@ public class Contact {
         this.date = date;
     }
 
-    public void setId(String id) {
+    /*public void setId(String id) {
 
         this.id = id;
     }
 
     public String getId() {
         return this.id;
-    }
+    }*/
 
     public void setage(String age) {
         this.age = age;
