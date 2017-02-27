@@ -74,6 +74,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, (String)parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent (MainActivity.this,TabsActivity.class);
                 String[] parts=((String)parent.getItemAtPosition(position)).split(" ");
-                intent.putExtra("PATIENT_NAME",parts[0]);
+                intent.putExtra("PATIENT_ID",parts[2]);
                 intent.putExtra("MOBILE_NO",parts[1]);
                 startActivity(intent);
             }
@@ -130,10 +131,11 @@ public class MainActivity extends AppCompatActivity {
             do {
 
 
-                String name,contact_no;
+                String name,contact_no,patient_id;
                 name = cursor.getString(0);
                 contact_no = cursor.getString(1);
-                String contactDetails=name+" "+contact_no;
+                patient_id = cursor.getString(2);
+                String contactDetails=name+" "+contact_no+" "+patient_id;
                 stringArrayList.add(contactDetails);
 
             } while (cursor.moveToNext());
@@ -175,10 +177,11 @@ public class MainActivity extends AppCompatActivity {
                     do {
 
 
-                        String name,contact_no;
+                        String name,contact_no,patient_id;
                         name = cursor.getString(0);
                         contact_no = cursor.getString(1);
-                        String contactDetails=name+" "+contact_no;
+                        patient_id = cursor.getString(2);
+                        String contactDetails=name+" "+contact_no+" "+patient_id;
                         stringArrayList.add(contactDetails);
 
                     } while (cursor.moveToNext());
